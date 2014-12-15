@@ -25,7 +25,7 @@ function return_in (s, callback) {
 
 function Parallel (){
 	var all_fn = [];
-	var open = true;
+	var open, done;
 	this.add = function (parallelized) {
 		all_fn.push(false);
 		process.nextTick((function(index) {
@@ -35,14 +35,13 @@ function Parallel (){
 	}
 	this.done = function (fn) {
 		done = fn;
+		if(all_fn.length>0 && alldone()) done();
+		else open = true;
 		return this;
 	}
-	function done () {
-		console.log("default done fn call");
-	};
 	function callback (index) {
 		all_fn[index] = true;
-		if(open && alldone()){
+		if(open && alldone() && done){
 			open = false;
 			done();
 		}
