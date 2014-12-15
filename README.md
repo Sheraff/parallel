@@ -89,15 +89,9 @@ new Parallel()
 with any delay:
 ```javascript
 var parallel = new Parallel()
-setTimeout(function () {
-	parallel.done(func0)
-}, 3000);
-setTimeout(function () {
-	parallel.add(func1)
-}, 2000);
-setTimeout(function () {
-	parallel.add(func2)
-}, 1000);
+setTimeout(parallel.done.bind(undefined,func0), 3000);
+setTimeout(parallel.add.bind(undefined,func2), 2000);
+setTimeout(parallel.add.bind(undefined,func1), 1000);
 // this still waits for func1 & func2 before executing func0
 ```
 
@@ -121,23 +115,15 @@ The function passed to `.done()` will be executed either:
 meaning that the following examples would call the function passed to `.done()` prematurely:
 ```javascript
 var parallel = new Parallel()
-setTimeout(function () {
-	parallel.done(func0)
-}, 2000);
-setTimeout(function () {
-	parallel.add(func1)
-}, 1000);
-setTimeout(function () {
-	parallel.add(func2)
-}, 3000);
+setTimeout(parallel.done.bind(undefined,func0), 2000);
+setTimeout(parallel.add.bind(undefined,func1), 1000);
+setTimeout(parallel.add.bind(undefined,func2), 3000);
 // here func0 is called before func2 returns
 ```
 ```javascript
 var parallel = new Parallel()
   .done(func0)
   .add(func1)
-setTimeout(function () {
-	parallel.add(func2)
-}, 1000);
+setTimeout(parallel.add.bind(undefined,func2), 1000);
 // here func0 is called before func2 returns
 ```
