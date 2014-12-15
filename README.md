@@ -2,6 +2,13 @@ parallel async function execution and callback
 ========
 Allows to trigger multiple async functions with a single common callback that is called once they have all returned. For full length example, see [example.js](https://github.com/Sheraff/parallel/blob/master/example.js).
 
+Documentation below:
+ - [simple use](https://github.com/Sheraff/parallel/tree/master#simple-use)
+ - [nested calls](https://github.com/Sheraff/parallel/tree/master#nested-calls)
+ - [resistant](https://github.com/Sheraff/parallel/tree/master#resistant)
+ - [passing arguments](https://github.com/Sheraff/parallel/tree/master#passing-arguments)
+ - [caveat](https://github.com/Sheraff/parallel/tree/master#caveat)
+
 
 # Simple use
 Just create a `Parallel` object and assign it functions to run with `.add()`: these functions will be called with a callback as last argument. The function passed to `.done()` will be called when all `add`ed functions have returned.
