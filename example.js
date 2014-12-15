@@ -5,11 +5,18 @@ var parallel = new Parallel()
 	})
 	.add(function (done) {
 		var parallel = new Parallel()
-			.done(done)
+			.done(function () {
+				console.log("sub parallel done");
+				done();
+			})
 			.add(return_in.bind(undefined, 3))
-			.add(return_in.bind(undefined, 1))
-			.add(return_in.bind(undefined, 2))
-	});
+			.add(return_in.bind(undefined, 1));
+	})
+	.add(function (done) {
+		parallel.add(return_in.bind(undefined, 3))
+		parallel.add(return_in.bind(undefined, 1))
+		done();
+	})
 
 function return_in (s, callback) {
 	console.log("will return in "+s+"s")
